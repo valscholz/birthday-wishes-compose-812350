@@ -46,20 +46,20 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }} .
-          docker build -t us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:latest .
-          docker build -t us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:stable .
+          docker build -t us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.SERVICE_NAME }}:${{ github.sha }} .
+          docker build -t us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.SERVICE_NAME }}:latest .
+          docker build -t us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.SERVICE_NAME }}:stable .
 
       - name: Push Docker image
         run: |
-          docker push us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
-          docker push us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:latest
-          docker push us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:stable
+          docker push us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          docker push us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.SERVICE_NAME }}:latest
+          docker push us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.SERVICE_NAME }}:stable
 
       - name: Deploy to Cloud Run (Production)
         run: |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
-            --image us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }} \
+            --image us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/caminu-agents/${{ env.SERVICE_NAME }}:${{ github.sha }} \
             --region ${{ env.REGION }} \
             --platform managed \
             --allow-unauthenticated \
